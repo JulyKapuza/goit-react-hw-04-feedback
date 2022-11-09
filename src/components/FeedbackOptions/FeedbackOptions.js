@@ -3,28 +3,36 @@ import { FaRegThumbsUp, FaRegMehBlank, FaRegThumbsDown } from 'react-icons/fa';
 import React from 'react';
 import css from './FeedbackOptions.module.css';
 
-const FeedbackOptions = ({ onLeaveFeedback }) => {
-  const { handleChoiseGood, handleChoiseNeutral, handleChoiseBad } =
-    onLeaveFeedback;
+const FeedbackOptions = ({options, onLeaveFeedback }) => {
+  
   return (
     <ul className={css.btnList}>
       <li className={css.btnItem}>
         <FaRegThumbsUp className={css.btnIconGood} size={20} />
-
-        <button type="button" className={css.btn} onClick={handleChoiseGood}>
-          good
+        <button
+          type="button"
+          className={css.btn}
+          onClick={onLeaveFeedback}
+          name={options[0]}
+        >
+          {options[0]}
         </button>
       </li>
       <li className={css.btnItem}>
         <FaRegMehBlank className={css.btnIconNeutral} size={20} />
-        <button type="button" className={css.btn} onClick={handleChoiseNeutral}>
-          neutral
+        <button
+          type="button"
+          className={css.btn}
+          onClick={onLeaveFeedback}
+          name={options[2]}
+        >
+          {options[2]}
         </button>
       </li>
       <li className={css.btnItem}>
         <FaRegThumbsDown className={css.btnIconBad} size={20} />
-        <button type="button" className={css.btn} onClick={handleChoiseBad}>
-          bad
+        <button type="button" className={css.btn} onClick={onLeaveFeedback} name={options[1]}>
+          {options[1]}
         </button>
       </li>
 
@@ -45,7 +53,8 @@ const FeedbackOptions = ({ onLeaveFeedback }) => {
 };
 
 FeedbackOptions.propTypes = {
-  onLeaveFeedback: PropTypes.objectOf(PropTypes.func.isRequired),
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
 };
 
 export default FeedbackOptions;

@@ -9,17 +9,29 @@ export default function App() {
   const [bad, setBad] = useState(0);
   const [neutral, setNeutral] = useState(0);
 
-  const handleChoiseGood = () => {
-    setGood(state => state + 1);
+  const feedback = { good, bad, neutral };
+
+  const handleChoise = e => {
+    const feedback = e.target.name;
+
+    switch (feedback) {
+      case 'good':
+        setGood(state => state + 1);
+        break;
+
+      case 'neutral':
+        setNeutral(state => state + 1);
+        break;
+
+      case 'bad':
+        setBad(state => state + 1);
+        break;
+
+      default:
+        break;
+    }
   };
 
-  const handleChoiseBad = () => {
-    setBad(state => state + 1);
-  };
-
-  const handleChoiseNeutral = () => {
-    setNeutral(state => state + 1);
-  };
   const countTotalFeedback = () => good + bad + neutral;
 
   const countPositiveFeedbackPercentage = () =>
@@ -29,12 +41,8 @@ export default function App() {
     <>
       <Section title="Please leave feedback">
         <FeedbackOptions
-          options={{ good, bad, neutral }}
-          onLeaveFeedback={{
-            handleChoiseGood,
-            handleChoiseBad,
-            handleChoiseNeutral,
-          }}
+          options={Object.keys(feedback)}
+          onLeaveFeedback={handleChoise}
         ></FeedbackOptions>
       </Section>
 
